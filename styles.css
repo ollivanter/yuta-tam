@@ -75,6 +75,20 @@ body::before {
   mask-image: radial-gradient(ellipse 70% 55% at 50% 0%, #000 20%, transparent 100%);
 }
 
+/* Animated grid + packets (drawn by typewriter.js); replaces the static grid */
+#bgfx {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse 90% 85% at 50% 25%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 90% 85% at 50% 25%, #000 35%, transparent 100%);
+}
+
+html.has-bgfx body::before {
+  display: none;
+}
+
 /* Soft accent glow at the top of the viewport */
 body::after {
   content: '';
