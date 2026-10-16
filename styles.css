@@ -25,6 +25,9 @@
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
+  --skeleton: #1a212b;
+  --skeleton-shine: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .05) 50%, transparent 70%);
+
   --radius: 10px;
   --nav-h: 68px;
   --maxw: 1120px;
@@ -596,12 +599,33 @@ main {
   padding: 10px;
 }
 
+.photo-frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+
+.photo-frame:not(.loaded)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--skeleton-shine);
+  background-size: 300% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
 .hero-photo {
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
+  height: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+
+.photo-frame.loaded .hero-photo {
+  opacity: 1;
 }
 
 .hero-photo-initials {
@@ -615,6 +639,11 @@ main {
 
 .hero-photo-card.no-img .hero-photo {
   display: none;
+}
+
+.hero-photo-card.no-img .hero-photo-initials {
+  position: absolute;
+  inset: 0;
 }
 
 .hero-photo-card.no-img .hero-photo-initials {
@@ -1038,6 +1067,16 @@ main {
   font-size: .92rem;
 }
 
+.tl-meta {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+}
+
+.tl-header:last-child {
+  margin-bottom: 0;
+}
+
 .tl-date {
   font-family: var(--font-mono);
   font-size: .78rem;
@@ -1296,8 +1335,55 @@ a.contact-val:hover {
   color: var(--muted);
 }
 
+/* ═══ SKELETON LOADING ═══
+   <html class="is-loading"> is set inline in <head> and removed by
+   typewriter.js once fonts and images are ready. Without JS the class is
+   never added, so content always shows. */
+html.is-loading .card,
+html.is-loading .terminal {
+  position: relative;
+}
+
+html.is-loading .card>*,
+html.is-loading .terminal>* {
+  visibility: hidden;
+}
+
+html.is-loading .card::before,
+html.is-loading .terminal::before {
+  content: '';
+  position: absolute;
+  inset: clamp(20px, 3vw, 28px);
+  background:
+    linear-gradient(var(--skeleton), var(--skeleton)) 0 0 / 38% 14px no-repeat,
+    linear-gradient(var(--skeleton), var(--skeleton)) 0 30px / 72% 12px no-repeat,
+    linear-gradient(var(--skeleton), var(--skeleton)) 0 56px / 92% 10px no-repeat,
+    linear-gradient(var(--skeleton), var(--skeleton)) 0 76px / 64% 10px no-repeat;
+}
+
+html.is-loading .card::after,
+html.is-loading .terminal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--skeleton-shine);
+  background-size: 300% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
 /* ═══ REVEAL ANIMATION ═══ */
-.reveal {
+html.js .reveal {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity .6s ease, transform .6s ease;

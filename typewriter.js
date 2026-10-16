@@ -147,13 +147,43 @@ var REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').match
   io.observe(term);
 })();
 
-/* ── Hero photo fallback to initials ── */
+/* ── Skeleton loading: drop placeholders once fonts and images are ready ── */
+(function () {
+  var root = document.documentElement;
+  if (!root.classList.contains('is-loading')) return;
+
+  var done = false;
+  function finish() {
+    if (done) return;
+    done = true;
+    root.classList.remove('is-loading');
+  }
+
+  var pageLoaded = document.readyState === 'complete'
+    ? Promise.resolve()
+    : new Promise(function (res) { window.addEventListener('load', res, { once: true }); });
+  var fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+
+  Promise.all([pageLoaded, fontsReady]).then(finish, finish);
+  setTimeout(finish, 2500); // never hold content back on a slow connection
+})();
+
+/* ── Hero photo: fade in when loaded, fall back to initials on error ── */
 (function () {
   var img = document.getElementById('heroPhoto');
   if (!img) return;
-  function fail() { img.closest('.hero-photo-card').classList.add('no-img'); }
-  if (img.complete && img.naturalWidth === 0) fail();
-  img.addEventListener('error', fail);
+  var frame = img.closest('.photo-frame');
+  function loaded() { frame.classList.add('loaded'); }
+  function fail() {
+    frame.classList.add('loaded');
+    img.closest('.hero-photo-card').classList.add('no-img');
+  }
+  if (img.complete) {
+    img.naturalWidth === 0 ? fail() : loaded();
+  } else {
+    img.addEventListener('load', loaded);
+    img.addEventListener('error', fail);
+  }
 })();
 
 /* ── CV download dropdown ── */

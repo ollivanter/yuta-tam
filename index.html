@@ -8,13 +8,15 @@
   <meta name="description" content="Achyuta Tamraparni: Computer Science student at PES University and software engineer focused on full-stack development and security." />
   <meta property="og:title" content="Achyuta Tamraparni · Software Engineer" />
   <meta property="og:description" content="Achyuta Tamraparni: Computer Science student at PES University and software engineer focused on full-stack development and security." />
-  <meta property="og:image" content="./yuta-img.jpeg" />
+  <meta property="og:image" content="https://ollivanter.github.io/yuta-tam/yuta-img.jpeg" />
   <meta name="theme-color" content="#0a0d12" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0d12'/%3E%3Ctext x='5' y='22' font-family='monospace' font-size='16' font-weight='700' fill='%2334d399'%3E&gt;_%3C/text%3E%3C/svg%3E" />
+  <link rel="preload" as="image" href="./yuta-img.webp" type="image/webp" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('js', 'is-loading');</script>
 </head>
 
 <body>
@@ -65,8 +67,14 @@
       </div>
 
       <figure class="hero-photo-card reveal">
-        <img src="./yuta-img.jpeg" alt="Portrait of Achyuta Tamraparni" class="hero-photo" id="heroPhoto" width="600" height="750" />
-        <div class="hero-photo-initials" aria-hidden="true">AT</div>
+        <div class="photo-frame">
+          <picture>
+            <source srcset="./yuta-img.webp" type="image/webp" />
+            <img src="./yuta-img.jpeg" alt="Portrait of Achyuta Tamraparni" class="hero-photo" id="heroPhoto"
+              width="600" height="750" fetchpriority="high" decoding="async" />
+          </picture>
+          <div class="hero-photo-initials" aria-hidden="true">AT</div>
+        </div>
         <figcaption class="photo-caption">
           <span>Bangalore, India</span>
           <span class="status"><span class="badge-dot"></span>Open to work</span>
