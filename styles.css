@@ -81,6 +81,7 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  opacity: .5; /* overall background strength */
   -webkit-mask-image: radial-gradient(ellipse 90% 85% at 50% 25%, #000 35%, transparent 100%);
   mask-image: radial-gradient(ellipse 90% 85% at 50% 25%, #000 35%, transparent 100%);
 }
@@ -100,7 +101,7 @@ body::after {
   transform: translateX(-50%);
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(ellipse at center, rgba(52, 211, 153, .06), rgba(96, 165, 250, .03) 40%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(52, 211, 153, .035), rgba(96, 165, 250, .015) 40%, transparent 70%);
 }
 
 img {
@@ -684,11 +685,42 @@ main {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: clamp(20px, 3vw, 28px);
-  transition: border-color .25s, transform .25s;
+  transition: border-color .25s, background-color .25s, box-shadow .25s, translate .25s;
 }
 
+/* Subtle lift on hover. Uses the standalone `translate` property so it
+   doesn't fight the reveal animation's `transform`. */
 .card:hover {
-  border-color: var(--border-strong);
+  border-color: rgba(52, 211, 153, .3);
+  background-color: #131a22;
+  box-shadow: 0 10px 30px -18px rgba(52, 211, 153, .25);
+  translate: 0 -2px;
+}
+
+.card .icon-box {
+  transition: border-color .25s, background-color .25s;
+}
+
+.card:hover .icon-box {
+  border-color: rgba(52, 211, 153, .4);
+  background-color: var(--accent-dim);
+}
+
+/* Static info rows don't need to lift */
+.info-card:hover {
+  translate: none;
+}
+
+.info-row {
+  transition: background-color .2s;
+  margin: 0 -10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 6px;
+}
+
+.info-row:hover {
+  background-color: rgba(255, 255, 255, .02);
 }
 
 .placeholder {
@@ -1022,12 +1054,13 @@ main {
   border-radius: 999px;
   font-size: .82rem;
   color: var(--text-dim);
-  transition: color .2s, border-color .2s;
+  transition: color .2s, border-color .2s, background-color .2s;
 }
 
 .skill-chip:hover {
   color: var(--accent);
   border-color: var(--accent);
+  background-color: var(--accent-dim);
 }
 
 /* ═══ EXPERIENCE (timeline) ═══ */
@@ -1135,7 +1168,6 @@ main {
 
 .project-card:hover {
   border-color: rgba(52, 211, 153, .45);
-  transform: translateY(-2px);
 }
 
 .project-top {
@@ -1400,10 +1432,10 @@ html.is-loading .terminal::after {
 html.js .reveal {
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity .6s ease, transform .6s ease;
+  transition: opacity .6s ease, transform .6s ease, border-color .25s, background-color .25s, box-shadow .25s, translate .25s;
 }
 
-.reveal.visible {
+html.js .reveal.visible {
   opacity: 1;
   transform: none;
 }
@@ -1534,7 +1566,7 @@ html.js .reveal {
     scroll-behavior: auto !important;
   }
 
-  .reveal {
+  html.js .reveal {
     opacity: 1;
     transform: none;
   }
