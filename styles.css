@@ -879,6 +879,81 @@ main {
   color: var(--accent);
 }
 
+/* ═══ CERTIFICATIONS, EVENTS & AWARDS ═══ */
+.ach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+}
+
+.ach-card {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.ach-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.ach-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  color: var(--muted);
+}
+
+.ach-type .icon-box {
+  width: 34px;
+  height: 34px;
+}
+
+.ach-type .icon-box svg {
+  width: 17px;
+  height: 17px;
+}
+
+.ach-card[data-type="cert"] .icon-box {
+  color: var(--blue);
+}
+
+.ach-card[data-type="event"] .icon-box {
+  color: #c084fc;
+}
+
+.ach-date {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  color: var(--muted);
+}
+
+.ach-title {
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+.ach-org {
+  margin-top: 2px;
+  color: var(--blue);
+  font-size: .9rem;
+}
+
+.ach-desc {
+  margin-top: 8px;
+  color: var(--text-dim);
+  font-size: .92rem;
+}
+
+.ach-card .project-link {
+  display: inline-block;
+  margin-top: 10px;
+}
+
 /* ═══ SKILLS ═══ */
 .skills-grid {
   display: grid;

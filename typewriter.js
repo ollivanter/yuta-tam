@@ -64,7 +64,7 @@ var REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').match
   var el = document.getElementById('typedText');
   if (!el) return;
 
-  var ROLES = ['Cybersecurity Enthusiast', 'Software Engineer', 'DevOps Engineer', 'Full-Stack Developer', 'Problem Solver'];
+  var ROLES = ['Software Engineer', 'Full-Stack Developer', 'Cybersecurity Enthusiast', 'Problem Solver'];
   var TYPE_SPD = 80;
   var DEL_SPD = 45;
   var PAUSE_FULL = 1800;
